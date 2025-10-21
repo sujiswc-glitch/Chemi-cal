@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chemical Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: inline-block;
+            width: 150px;
+            margin-bottom: 5px;
+        }
+        input, select {
+            padding: 5px;
+            width: 200px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f0f0f0;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Chemical Calculator</h1>
+    
+    <div class="form-group">
+        <label for="x1">X1 (Emitter Discharge):</label>
+        <input type="text" id="x1" step="any" required>
+    </div>
+
+    <div class="form-group">
+        <label for="x2">X2 (Length Plot):</label>
+        <input type="text" id="x2" step="any" required>
+    </div>
+
+    <div class="form-group">
+        <label for="x3">X3 (Head Space):</label>
+        <select id="x3" required>
+            <option value="">Select Head Space</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="x4">X4 (Duration):</label>
+        <input type="text" id="x4" step="any" required>
+    </div>
+
+    <button onclick="calculate()">Calculate</button>
+
+    <div class="result" id="result"></div>
+
+    <script>
+        function calculate() {
+            // Get input values
+            const x1 = parseFloat(document.getElementById('x1').value);
+            const x2 = parseFloat(document.getElementById('x2').value);
+            const x3 = parseFloat(document.getElementById('x3').value);
+            const x4 = parseFloat(document.getElementById('x4').value);
+
+            // Validate inputs
+            if (isNaN(x1) || isNaN(x2) || isNaN(x3) || isNaN(x4)) {
+                alert('Please fill in all fields with valid numbers');
+                return;
+            }
+
+            if (x4 === 0) {
+                alert('X4 (Duration) cannot be zero');
+                return;
+            }
+
+            // Calculate Y = x1 + x2 – x3 / x4
+            const y = (x1 + x2 - x3) / x4;
+
+            // Calculate V = Y * 24
+            const v = y * 24;
+
+            // Display results
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = `
+                <h3>Results:</h3>
+                <p>Y = ${y.toFixed(2)}</p>
+                <p>Volume of Acids (V) = ${v.toFixed(2)}</p>
+            `;
+        }
+    </script>
+</body>
+</html>
